@@ -57,7 +57,8 @@ class Manager extends EventEmitter {
       this.deleteAllJobs,
       this.deleteJob,
       this.getJobById,
-      this.getJobsByData
+      this.getJobsByData,
+      this.getJobsBySingletonKey
     ]
   }
 
@@ -694,6 +695,22 @@ class Manager extends EventEmitter {
     const sql = plans.getJobsByData(this.config.schema, table, onlyQueued)
 
     const result = await db.executeSql(sql, [name, data])
+
+    return result.rows
+  }
+
+  async getJobsBySingletonKey (name, key, options = {}) {
+    const { onlyQueued = true } = options
+
+    Attorney.assertQueueName(name)
+
+    const db = this.assertDb(options)
+
+    const { table } = await this.getQueueCache(name)
+
+    const sql = plans.getJobsBySingletonKey(this.config.schema, table, onlyQueued)
+
+    const result = await db.executeSql(sql, [name, key])
 
     return result.rows
   }

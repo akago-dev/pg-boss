@@ -300,6 +300,7 @@ declare class PgBoss extends EventEmitter {
 
   getJobById<T>(name: string, id: string, options?: PgBoss.ConnectionOptions): Promise<PgBoss.JobWithMetadata<T> | null>
   getJobsByData<T>(name: string, data: object, options?: PgBoss.ConnectionOptions & { onlyQueued: true }): Promise<PgBoss.JobWithMetadata<T>[]>;
+  getJobsBySingletonKey<T>(name: string, key: string, options?: PgBoss.ConnectionOptions & { onlyQueued: true }): Promise<PgBoss.JobWithMetadata<T>[]>;
 
   createQueue (name: string, options?: Omit<PgBoss.Queue, 'name'>): Promise<void>
   createQueue (options: PgBoss.Queue): Promise<void>

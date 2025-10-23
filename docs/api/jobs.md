@@ -333,6 +333,10 @@ Retrieves all jobs (with all their metadata) which data includes data given in p
 
 Example: If job's data is `{"foo": "bar", "baz": 1}` and `data` is `{"foo": "bar"}`, the row will match.
 
+### `getJobsBySingletonKey(name, key, options)`
+
+Retrieves all jobs (with all their metadata) which singleton key is `key`.
+
 **options**
 
 * **db**, object, see notes in `send()`
